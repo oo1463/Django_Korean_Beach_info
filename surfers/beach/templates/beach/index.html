@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Surfers</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+<!--    <img-->
+<!--        src="https://maps.googleapis.com/maps/api/staticmap?center=36.31,126.513-->
+<!--        &zoom=7&size=600x600&maptype=roadmap-->
+<!--        &markers=color:blue%7Clabel:S%7C36.31,126.513-->
+<!--        &key={{ apikey }}"-->
+<!--        alt="google-map"-->
+<!--    />-->
+
+    <table class="table table-striped">
+        <tr>
+            <td>해수욕장명</td>
+            <td>날짜 / 시간</td>
+            <td>기온</td>
+            <td>수온</td>
+            <td>파도높이</td>
+        </tr>
+        {% for i in beach  %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.date }} / {{ i.time_type }}</td>
+                    <td>{{ i.air_temp }} ℃</td>
+                    <td>{{ i.water_temp }} ℃</td>
+                    <td>{{ i.wave_height }} m</td>
+                </tr>
+
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Surfers</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key={{ apikey }}&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 80%;
+        width: 60%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      "use strict";
+
+      let map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: {
+            lat: 36.31,
+            lng: 126.513
+          },
+          mapTypeControl: false,
+          streetViewControl: false,
+          zoom: 7
+        });
+
+        var customicon = 'http://drive.google.com/uc?export=view&id=1tZgPtboj4mwBYT6cZlcY36kYaQDR2bRM'
+
+        {% for i in beach %}
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker = new google.maps.Marker({
+                //마커의 위치
+                position: new google.maps.LatLng({{ i.0.lat }}, {{ i.0.lon }}),
+                //마커 아이콘
+                icon: customicon,
+                //마커를 표시할 지도
+                map: map
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+                    return function() {
+
+                        var info = '<h2>{{ i.0.name }}</h2><br><table class="table table-striped"><tr><td>날짜 / 시간</td><td>기온</td><td>수온</td><td>파도높이</td></tr>{% for x in i %}<tr><td>{{ x.date }} / {{ x.time_type }}</td><td>{{ x.air_temp }}</td><td>{{ x.water_temp }}</td><td>{{ x.wave_height }}</td></tr>{% endfor %}</table>'
+
+                        //html로 표시될 인포 윈도우의 내용
+                        infowindow.setContent(info);
+
+                        //인포윈도우가 표시될 위치
+                        infowindow.open(map, marker);
+                    }
+                })(marker));
+
+                if (marker) {
+                    marker.addListener('click', function() {
+
+                        //중심 위치를 클릭된 마커의 위치로 변경
+                        map.setCenter(this.getPosition());
+
+                        //마커 클릭 시의 줌 변화
+                        map.setZoom(7);
+                    });
+                }
+        {% endfor %}
+
+      }
+
+
+
+    </script>
+
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
