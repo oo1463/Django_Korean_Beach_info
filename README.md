@@ -1,4 +1,4 @@
-![ex_screenshot](./img/beach_info.jpg)
+![ex_screenshot](./img/beach_info.JPG)
 
 
 Korean beach information
