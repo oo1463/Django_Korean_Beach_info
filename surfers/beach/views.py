@@ -8,7 +8,7 @@ from django.shortcuts import render
 from .apikeys import *
 
 
-def wave(request):
+def wave(request):  # 해수욕 지수는 여름 해수욕장 개장 시기에만 OPEN API 제공
 
     with urlopen(
             "http://www.khoa.go.kr/oceangrid/grid/api/fcIndexOfType/search.do?ServiceKey="+khoa_key+"&Type=BE&ResultType=json") as url:
@@ -19,7 +19,7 @@ def wave(request):
     # print(sea_json['result']['data'][0],sea_json['result']['data'][1],)
     # print(json.dumps(sea_json['result']['data'], indent=4, ensure_ascii=False))
 
-    # print(sea_json['result']['data'][0]['name'])
+    # print(sea_json['result']['data'])
     # print(sea_json['result']['data'][0]['water_temp'])
     # print(sea_json['result']['data'][0]['wave_height'])
 
