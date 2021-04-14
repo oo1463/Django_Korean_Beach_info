@@ -6,6 +6,8 @@
 
 Python Django framework + Open API
 
+Frontend - HTML, CSS(Bootstrap), javascript
+
 Open API in
 http://www.khoa.go.kr/oceangrid/khoa/takepart/openapi/openApiKey.do
 
